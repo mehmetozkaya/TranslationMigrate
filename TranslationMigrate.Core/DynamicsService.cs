@@ -29,7 +29,6 @@ namespace TranslationMigrate.Core
                 Uri serviceUri = new Uri(serviceUrl);
                 service = new OrganizationServiceProxy(serviceUri, null, credentials, null);
                 service.EnableProxyTypes();
-
             }
             catch (Exception exception)
             {
