@@ -37,5 +37,7 @@ namespace TranslationMigrate.Core
             }            
             return service;
         }
+
+        public string Asd() => "";
     }
 }
