@@ -1,2 +1,3 @@
 # TranslationMigrate
-Move Translation from Dev to MasterDev Envirement
+Move Translation records from Dev to MasterDev Envirement
+Using Xrm assembly, connect dynamics organization service and compare translations.
