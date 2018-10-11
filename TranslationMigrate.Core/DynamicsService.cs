@@ -40,4 +40,9 @@ namespace TranslationMigrate.Core
 
         public string Asd() => "";
     }
+
+    internal class DynamicsServiceFactory
+    {
+
+    }
 }
