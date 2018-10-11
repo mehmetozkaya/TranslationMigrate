@@ -43,6 +43,6 @@ namespace TranslationMigrate.Core
 
     internal class DynamicsServiceFactory
     {
-
+        private readonly string _factoryMethod;
     }
 }
