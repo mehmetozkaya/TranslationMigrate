@@ -1,23 +1,22 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk.Client;
-using System.Configuration;
 using System.ServiceModel.Description;
 
 namespace TranslationMigrate.Core
 {
-    public class DynamicsService : IDynamicsService
+    public class DynamicsService : IDynamicsService, IDisposable
     {
-        private readonly OrganizationServiceProxy _organizationServiceProxy;
-        private readonly OrganizationServiceCredentials _credentials;
+        private OrganizationServiceProxy _organizationServiceProxy;
+        private OrganizationServiceCredentials _credentials;
 
         private DynamicsService()
         {
             
         }
 
-        public DynamicsService(OrganizationServiceCredentials organizationServiceCredentials)
+        public DynamicsService(CredentialType credentialType)
         {
-            _credentials = organizationServiceCredentials ?? throw new ArgumentNullException(nameof(organizationServiceCredentials));
+            _credentials = new OrganizationServiceCredentials(credentialType);
             _organizationServiceProxy = LoadOrganizationService();
         }
 
@@ -39,9 +38,10 @@ namespace TranslationMigrate.Core
             }
         }
 
-        public void MigrateTranslations()
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _organizationServiceProxy = null;
+            _credentials = null;
         }
     }
 }

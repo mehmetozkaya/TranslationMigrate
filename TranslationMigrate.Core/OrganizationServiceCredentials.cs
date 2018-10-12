@@ -2,17 +2,18 @@
 
 namespace TranslationMigrate.Core
 {
-    public class OrganizationServiceCredentials
+    internal class OrganizationServiceCredentials
     {
         public string UserName { get; private set; }
         public string Password { get; private set; }
         public string Url { get; private set; }
 
-        private OrganizationServiceCredentials()
+        internal OrganizationServiceCredentials(CredentialType credentialType)
         {
+            Create(credentialType);
         }
 
-        internal void Create(CredentialType credentialType)
+        private void Create(CredentialType credentialType)
         {
             switch (credentialType)
             {

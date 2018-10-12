@@ -4,11 +4,13 @@ namespace TranslationMigrate.Core
 {
     public class TranslationManager
     {
-        private readonly IDynamicsService _service;
-
-        public TranslationManager(IDynamicsService service)
+        public TranslationManager()
         {
-            _service = service ?? throw new ArgumentNullException(nameof(service));
+            using (var service = new DynamicsService(CredentialType.Dev))
+            {
+                
+            };  
+            
         }
 
 
