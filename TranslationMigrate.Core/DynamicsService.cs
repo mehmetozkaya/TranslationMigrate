@@ -12,7 +12,7 @@ namespace TranslationMigrate.Core
         public DynamicsService(OrganizationServiceProxy organizationServiceProxy)
         {
             _organizationServiceProxy = LoadOrganizationService();
-        }        
+        }
 
         private OrganizationServiceProxy LoadOrganizationService()
         {
