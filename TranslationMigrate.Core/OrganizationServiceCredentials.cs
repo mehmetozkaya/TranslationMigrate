@@ -37,10 +37,4 @@ namespace TranslationMigrate.Core
         private const string MasterDevPasswordConfiguration = "MasterDevPassword";
         private const string MasterDevURLConfiguration = "MasterDevURL";
     }
-
-    public enum CredentialType
-    {
-        Dev,
-        MasterDev
-    }
 }

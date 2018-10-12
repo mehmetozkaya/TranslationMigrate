@@ -44,14 +44,4 @@ namespace TranslationMigrate.Core
             throw new NotImplementedException();
         }
     }
-
-    internal class DynamicsServiceFactory
-    {
-        private readonly string _factoryMethod;
-
-        public DynamicsServiceFactory(string factoryMethod)
-        {
-            _factoryMethod = factoryMethod;
-        }
-    }
 }

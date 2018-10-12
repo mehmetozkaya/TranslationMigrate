@@ -11,7 +11,7 @@ namespace TranslationMigrate.Console
     {
         static void Main(string[] args)
         {
-            IDynamicsService dynamicsService = new DynamicsService();
+            //IDynamicsService dynamicsService = new DynamicsService();
 
 
         }
