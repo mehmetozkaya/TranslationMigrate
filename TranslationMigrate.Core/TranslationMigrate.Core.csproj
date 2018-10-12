@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DynamicsService.cs" />
     <Compile Include="IDynamicsService.cs" />
+    <Compile Include="OrganizationServiceCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
