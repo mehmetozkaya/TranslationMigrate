@@ -5,14 +5,14 @@ using System.ServiceModel.Description;
 
 namespace TranslationMigrate.Core
 {
-    internal class DynamicsService : IDynamicsService
+    public class DynamicsService : IDynamicsService
     {
         private readonly OrganizationServiceProxy _organizationServiceProxy;
 
         public DynamicsService(OrganizationServiceProxy organizationServiceProxy)
         {
             _organizationServiceProxy = LoadOrganizationService();
-        }
+        }        
 
         private OrganizationServiceProxy LoadOrganizationService()
         {
@@ -38,7 +38,10 @@ namespace TranslationMigrate.Core
             return service;
         }
 
-        public string Asd() => "";
+        public void MigrateTranslations()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     internal class DynamicsServiceFactory

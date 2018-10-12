@@ -8,6 +8,6 @@ namespace TranslationMigrate.Core
 {
     public interface IDynamicsService
     {
-
+        void MigrateTranslations();
     }
 }

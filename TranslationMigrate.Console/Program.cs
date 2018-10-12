@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TranslationMigrate.Core;
 
 namespace TranslationMigrate.Console
 {
@@ -10,6 +11,7 @@ namespace TranslationMigrate.Console
     {
         static void Main(string[] args)
         {
+            IDynamicsService dynamicsService = new DynamicsService();
         }
     }
 }
