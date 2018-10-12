@@ -9,7 +9,7 @@ namespace TranslationMigrate.Core
     {
         private readonly OrganizationServiceProxy _organizationServiceProxy;
 
-        public DynamicsService(OrganizationServiceProxy organizationServiceProxy)
+        public DynamicsService()
         {
             _organizationServiceProxy = LoadOrganizationService();
         }
