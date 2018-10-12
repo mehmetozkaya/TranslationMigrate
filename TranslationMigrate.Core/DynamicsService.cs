@@ -8,40 +8,35 @@ namespace TranslationMigrate.Core
     public class DynamicsService : IDynamicsService
     {
         private readonly OrganizationServiceProxy _organizationServiceProxy;
-        private readonly OrganizationServiceCredentials _organizationServiceCredentials;
+        private readonly OrganizationServiceCredentials _credentials;
 
-        public DynamicsService()
+        private DynamicsService()
         {
-            _organizationServiceProxy = LoadOrganizationService();
+            
         }
 
         public DynamicsService(OrganizationServiceCredentials organizationServiceCredentials)
         {
-            _organizationServiceCredentials = organizationServiceCredentials ?? throw new ArgumentNullException(nameof(organizationServiceCredentials));
+            _credentials = organizationServiceCredentials ?? throw new ArgumentNullException(nameof(organizationServiceCredentials));
+            _organizationServiceProxy = LoadOrganizationService();
         }
 
         private OrganizationServiceProxy LoadOrganizationService()
         {
-            var userName = ConfigurationSettings.AppSettings["CRMUserName"].ToString();
-            var password = ConfigurationSettings.AppSettings["CRMUserPassword"].ToString();
-            var serviceUrl = $"{ConfigurationSettings.AppSettings["CRMOrgURL"].ToString()}/XRMServices/2011/Organization.svc";
-
-            OrganizationServiceProxy service = null;
             try
             {
                 ClientCredentials credentials = new ClientCredentials();
-                credentials.UserName.UserName = userName;
-                credentials.UserName.Password = password;
-                Uri serviceUri = new Uri(serviceUrl);
-                service = new OrganizationServiceProxy(serviceUri, null, credentials, null);
+                credentials.UserName.UserName = _credentials.UserName;
+                credentials.UserName.Password = _credentials.Password;
+                Uri serviceUri = new Uri(_credentials.Url);
+                var service = new OrganizationServiceProxy(serviceUri, null, credentials, null);
                 service.EnableProxyTypes();
+                return service;
             }
             catch (Exception exception)
             {
-                return null;
-                //Log the Error message
-            }            
-            return service;
+                throw new Exception(exception.Message);
+            }
         }
 
         public void MigrateTranslations()
