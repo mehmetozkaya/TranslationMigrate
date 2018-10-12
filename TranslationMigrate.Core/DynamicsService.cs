@@ -8,10 +8,16 @@ namespace TranslationMigrate.Core
     public class DynamicsService : IDynamicsService
     {
         private readonly OrganizationServiceProxy _organizationServiceProxy;
+        private readonly OrganizationServiceCredentials _organizationServiceCredentials;
 
         public DynamicsService()
         {
             _organizationServiceProxy = LoadOrganizationService();
+        }
+
+        public DynamicsService(OrganizationServiceCredentials organizationServiceCredentials)
+        {
+            _organizationServiceCredentials = organizationServiceCredentials ?? throw new ArgumentNullException(nameof(organizationServiceCredentials));
         }
 
         private OrganizationServiceProxy LoadOrganizationService()
