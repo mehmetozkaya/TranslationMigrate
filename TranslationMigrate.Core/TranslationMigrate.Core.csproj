@@ -51,6 +51,7 @@
     <Compile Include="OrganizationServiceCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TranslationManager.cs" />
+    <Compile Include="TranslationStack.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

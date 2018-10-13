@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk.Client;
 using System.ServiceModel.Description;
 using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk;
 
 namespace TranslationMigrate.Core
 {
@@ -68,6 +69,10 @@ namespace TranslationMigrate.Core
 
             return query;
         }
+        
+
+        public EntityCollection Execute(QueryExpression query) => 
+            _organizationServiceProxy.RetrieveMultiple(query);
 
         public void Dispose()
         {

@@ -13,24 +13,27 @@ namespace TranslationMigrate.Core
 
         public void Sync()
         {
-            var devTranslations = GetDevTranslationList();
+            var targetTranslations = GetTargetTranslationList();
 
             throw new NotImplementedException();
         }
 
-        private string GetDevTranslationList()
+        private TranslationStack GetTargetTranslationList()
         {
-            using (var service = new DynamicsService(CredentialType.Dev))
+            using (var service = new DynamicsService(CredentialType.MasterDev))
             {
-                service.CreateQuery(LanguageCode.English);
+                var query = service.CreateQuery(LanguageCode.English);
+                var entityCollection = service.Execute(query);
 
-            };
+                var querySpanish = service.CreateQuery(LanguageCode.Spanish);
+                var entityCollectionSpanish = service.Execute(querySpanish);
 
-            return null;
-        }
-
-        
-
-
+                return new TranslationStack
+                {
+                    TranslationEnglish = entityCollection,
+                    TranslationSpanish = entityCollectionSpanish
+                };
+            };            
+        }        
     }
 }
