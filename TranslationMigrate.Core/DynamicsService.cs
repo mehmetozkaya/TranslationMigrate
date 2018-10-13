@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk.Client;
 using System.ServiceModel.Description;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace TranslationMigrate.Core
 {
@@ -36,6 +37,25 @@ namespace TranslationMigrate.Core
             {
                 throw new Exception(exception.Message);
             }
+        }
+
+        private void GetTranslation()
+        {
+
+            QueryExpression querySpanish = new QueryExpression("etel_translation");
+            querySpanish.Criteria.AddCondition("etel_lcid", ConditionOperator.Equal, 3082);
+            querySpanish.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);            
+            querySpanish.ColumnSet = new ColumnSet(new string[] { "etel_lcid", "etel_formid", "etel_code", "etel_message", "modifiedon", "createdon" });
+            querySpanish.Orders.Add(new OrderExpression("modifiedon", OrderType.Descending));
+            querySpanish.TopCount = 5000;
+
+            QueryExpression queryEnglish = new QueryExpression("etel_translation");
+            queryEnglish.Criteria.AddCondition("etel_lcid", ConditionOperator.Equal, 1033);
+            queryEnglish.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);            
+            queryEnglish.ColumnSet = new ColumnSet(new string[] { "etel_lcid", "etel_formid", "etel_code", "etel_message", "modifiedon", "createdon" });
+            queryEnglish.TopCount = 5000;
+            queryEnglish.Orders.Add(new OrderExpression("modifiedon", OrderType.Descending));
+
         }
 
         public void Dispose()
