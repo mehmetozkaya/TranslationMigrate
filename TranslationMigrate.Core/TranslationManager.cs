@@ -3,21 +3,31 @@
 namespace TranslationMigrate.Core
 {
     public class TranslationManager : ITranslationManager
-    {
+    {        
+
         public TranslationManager()
         {
-            using (var service = new DynamicsService(CredentialType.Dev))
-            {
-
-                
-
-            };  
+           
             
         }
 
         public void Sync()
         {
+            var devTranslations = GetDevTranslationList();
+
             throw new NotImplementedException();
+        }
+
+        private string GetDevTranslationList()
+        {
+            using (var service = new DynamicsService(CredentialType.Dev))
+            {
+
+
+
+            };
+
+            return null;
         }
     }
 }
