@@ -22,12 +22,15 @@ namespace TranslationMigrate.Core
         {
             using (var service = new DynamicsService(CredentialType.Dev))
             {
-
-
+                service.CreateQuery(LanguageCode.English);
 
             };
 
             return null;
         }
+
+        
+
+
     }
 }

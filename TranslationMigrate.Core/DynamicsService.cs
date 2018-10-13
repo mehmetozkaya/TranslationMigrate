@@ -41,7 +41,6 @@ namespace TranslationMigrate.Core
 
         private void GetTranslation()
         {
-
             QueryExpression querySpanish = new QueryExpression("etel_translation");
             querySpanish.Criteria.AddCondition("etel_lcid", ConditionOperator.Equal, 3082);
             querySpanish.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);            
@@ -58,10 +57,28 @@ namespace TranslationMigrate.Core
 
         }
 
+        public QueryExpression CreateQuery(LanguageCode languageCode)
+        {            
+            QueryExpression query = new QueryExpression("etel_translation");
+            query.Criteria.AddCondition("etel_lcid", ConditionOperator.Equal, (int)languageCode);
+            query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
+            query.ColumnSet = new ColumnSet(new string[] { "etel_lcid", "etel_formid", "etel_code", "etel_message", "modifiedon", "createdon" });
+            query.Orders.Add(new OrderExpression("modifiedon", OrderType.Descending));
+            query.TopCount = 5000;
+
+            return query;
+        }
+
         public void Dispose()
         {
             _organizationServiceProxy = null;
             _credentials = null;
         }
+    }
+
+    public enum LanguageCode
+    {
+        Spanish = 3082,
+        English = 1033
     }
 }
