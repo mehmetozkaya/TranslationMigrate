@@ -1,14 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TranslationMigrate.Core
 {
     public class TranslationManager : ITranslationManager
-    {        
-
+    {
         public TranslationManager()
-        {
-           
-            
+        {            
         }
 
         public void Sync()
@@ -16,11 +14,13 @@ namespace TranslationMigrate.Core
             var targetTranslations = GetTargetTranslationList();
             var sourceTranslations = GetSourceTranslationList();
 
-            CompareAndSync(sourceTranslations, targetTranslations);            
+            var differences = CompareAndSync(sourceTranslations, targetTranslations);
         }
 
-        private void CompareAndSync(TranslationStack sourceTranslations, TranslationStack targetTranslations)
+        private List<TranslationItem> CompareAndSync(TranslationStack sourceTranslations, TranslationStack targetTranslations)
         {
+            var translationDifferences = new List<TranslationItem>();
+
             foreach (var sourceItem in sourceTranslations.TranslationEnglish.Entities)
             {
                 var isExist = false;
@@ -49,12 +49,34 @@ namespace TranslationMigrate.Core
 
                 if(!isExist)
                 {
-                    using (var service = new DynamicsService(CredentialType.MasterDev))
+                    TranslationItem translationItem = new TranslationItem
                     {
-                        service.Create(sourceItem);
+                        Code = sourceItem.Attributes["etel_code"].ToString().Trim(),
+                        FormId = sourceItem.Attributes["etel_formid"].ToString().Trim(),
+                        LanguageId = (int)sourceItem.Attributes["etel_lcid"],
+                        Message = sourceItem.Attributes["etel_message"].ToString().Trim(),
+                        RecordGuid = sourceItem.Id
+                    };
+
+                    translationDifferences.Add(translationItem);
+
+                    try
+                    {
+                        using (var service = new DynamicsService(CredentialType.MasterDev))
+                        {
+                            service.Create(sourceItem);
+                        }
                     }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                    
                 }
             }
+
+            return translationDifferences;
         }
 
         private TranslationStack GetTargetTranslationList()
@@ -92,5 +114,14 @@ namespace TranslationMigrate.Core
                 };
             };
         }
+    }
+
+    public class TranslationItem
+    {
+        public string FormId { get; set; }
+        public string Code { get; set; }
+        public int LanguageId { get; set; }
+        public Guid RecordGuid { get; set; }
+        public string Message { get; set; }        
     }
 }
