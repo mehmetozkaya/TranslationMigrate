@@ -37,7 +37,7 @@ namespace TranslationMigrate.Core
                         isExist = true;
                         if (sourceItem["etel_message"].ToString() != targetItem["etel_message"].ToString())
                         {
-                            Microsoft.Xrm.Sdk.Entity targetUpdate = new Microsoft.Xrm.Sdk.Entity(targetItem.LogicalName, targetItem.Id);
+                            Entity targetUpdate = new Entity(targetItem.LogicalName, targetItem.Id);
                             targetUpdate["etel_message"] = sourceItem.Attributes["etel_message"].ToString();
 
                             using (var service = new DynamicsService(CredentialType.MasterDev))
@@ -74,8 +74,7 @@ namespace TranslationMigrate.Core
                         {
                             service.UpdateTranslation(sourceItem);
                         }
-                    }
-                    
+                    }                    
                 }
             }
 

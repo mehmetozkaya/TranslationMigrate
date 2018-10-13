@@ -10,10 +10,10 @@ namespace TranslationMigrate.Core
 
         internal OrganizationServiceCredentials(CredentialType credentialType)
         {
-            Create(credentialType);
+            LoadCredentialItems(credentialType);
         }
 
-        private void Create(CredentialType credentialType)
+        private void LoadCredentialItems(CredentialType credentialType)
         {
             switch (credentialType)
             {
