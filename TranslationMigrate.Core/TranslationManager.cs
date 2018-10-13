@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 
 namespace TranslationMigrate.Core
@@ -14,18 +15,18 @@ namespace TranslationMigrate.Core
             var targetTranslations = GetTargetTranslationList();
             var sourceTranslations = GetSourceTranslationList();
 
-            var differences = CompareAndSync(sourceTranslations, targetTranslations);
+            var differences = CompareAndSync(sourceTranslations.TranslationEnglish, targetTranslations.TranslationEnglish);
+            var differencesSpanish = CompareAndSync(sourceTranslations.TranslationSpanish, targetTranslations.TranslationSpanish);
         }
 
-        private List<TranslationItem> CompareAndSync(TranslationStack sourceTranslations, TranslationStack targetTranslations)
+        private List<TranslationItem> CompareAndSync(EntityCollection sourceTranslations, EntityCollection targetTranslations)
         {
             var translationDifferences = new List<TranslationItem>();
 
-            foreach (var sourceItem in sourceTranslations.TranslationEnglish.Entities)
+            foreach (var sourceItem in sourceTranslations.Entities)
             {
                 var isExist = false;
-
-                foreach (var targetItem in targetTranslations.TranslationEnglish.Entities)
+                foreach (var targetItem in targetTranslations.Entities)
                 {
                     if(
                         sourceItem["etel_formid"].ToString() == targetItem["etel_formid"].ToString()
@@ -116,14 +117,5 @@ namespace TranslationMigrate.Core
                 };
             };
         }
-    }
-
-    public class TranslationItem
-    {
-        public string FormId { get; set; }
-        public string Code { get; set; }
-        public int LanguageId { get; set; }
-        public Guid RecordGuid { get; set; }
-        public string Message { get; set; }        
     }
 }
