@@ -56,10 +56,10 @@ namespace TranslationMigrate.Core
             queryEnglish.TopCount = 5000;
             queryEnglish.Orders.Add(new OrderExpression("modifiedon", OrderType.Descending));
 
-        }
+        }       
 
         public QueryExpression CreateQuery(LanguageCode languageCode)
-        {            
+        {
             QueryExpression query = new QueryExpression("etel_translation");
             query.Criteria.AddCondition("etel_lcid", ConditionOperator.Equal, (int)languageCode);
             query.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
@@ -69,10 +69,21 @@ namespace TranslationMigrate.Core
 
             return query;
         }
-        
+
+        public QueryExpression CreateQueryWithLastDays(LanguageCode languageCode, int lastDayCount)
+        {
+            var query = CreateQuery(languageCode);
+            query.Criteria.AddCondition("modifiedon", ConditionOperator.LastXDays, lastDayCount);
+            return query;
+        }
+
 
         public EntityCollection Execute(QueryExpression query) => 
             _organizationServiceProxy.RetrieveMultiple(query);
+
+        public void Update(Entity entity) => _organizationServiceProxy.Update(entity);
+
+        public void Create(Entity entity) => _organizationServiceProxy.Create(entity);
 
         public void Dispose()
         {
