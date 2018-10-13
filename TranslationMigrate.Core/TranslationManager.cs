@@ -69,8 +69,10 @@ namespace TranslationMigrate.Core
                     }
                     catch (Exception)
                     {
-
-                        throw;
+                        using (var service = new DynamicsService(CredentialType.MasterDev))
+                        {
+                            service.UpdateTranslation(sourceItem);
+                        }
                     }
                     
                 }

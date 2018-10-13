@@ -70,6 +70,17 @@ namespace TranslationMigrate.Core
             return query;
         }
 
+        internal void UpdateTranslation(Entity sourceItem)
+        {
+            var translationEntity = Retrieve(sourceItem.LogicalName, sourceItem.Id, new ColumnSet(new string[] { "etel_lcid", "etel_formid", "etel_code", "etel_message", "modifiedon", "createdon" }));
+
+            translationEntity["etel_code"] = sourceItem.Attributes["etel_code"].ToString();
+            translationEntity["etel_formid"] = sourceItem.Attributes["etel_formid"].ToString();
+            translationEntity["etel_message"] = sourceItem.Attributes["etel_message"].ToString();
+
+            Update(translationEntity);
+        }
+
         public QueryExpression CreateQueryWithLastDays(LanguageCode languageCode, int lastDayCount)
         {
             var query = CreateQuery(languageCode);
@@ -80,6 +91,8 @@ namespace TranslationMigrate.Core
 
         public EntityCollection Execute(QueryExpression query) => 
             _organizationServiceProxy.RetrieveMultiple(query);
+
+        public Entity Retrieve(string entityName, Guid entityGuid, ColumnSet columnSet) => _organizationServiceProxy.Retrieve(entityName, entityGuid, columnSet);
 
         public void Update(Entity entity) => _organizationServiceProxy.Update(entity);
 
