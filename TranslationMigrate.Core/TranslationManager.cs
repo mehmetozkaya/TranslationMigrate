@@ -15,8 +15,10 @@ namespace TranslationMigrate.Core
         {
             var targetTranslations = GetTargetTranslationList();
 
+            var sourceTranslations = GetSourceTranslationList();
+
             throw new NotImplementedException();
-        }
+        }     
 
         private TranslationStack GetTargetTranslationList()
         {
@@ -34,6 +36,11 @@ namespace TranslationMigrate.Core
                     TranslationSpanish = entityCollectionSpanish
                 };
             };            
-        }        
+        }
+
+        private object GetSourceTranslationList()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
