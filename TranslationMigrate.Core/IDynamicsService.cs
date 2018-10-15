@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,8 @@ namespace TranslationMigrate.Core
 {
     public interface IDynamicsService
     {
-        // void MigrateTranslations();
+        EntityCollection Execute(QueryExpression query);
+        void Update(Entity entity);
+        void Create(Entity entity);
     }
 }
