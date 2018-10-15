@@ -74,7 +74,7 @@ namespace TranslationMigrate.Core
                         {
                             service.UpdateTranslation(sourceItem);
                         }
-                    }                    
+                    }
                 }
             }
 
