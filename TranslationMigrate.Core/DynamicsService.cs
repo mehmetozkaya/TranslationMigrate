@@ -84,10 +84,4 @@ namespace TranslationMigrate.Core
             _credentials = null;
         }
     }
-
-    public enum LanguageCode
-    {
-        Spanish = 3082,
-        English = 1033
-    }
 }
