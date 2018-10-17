@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TranslationMigrate.Core
 {
-    public class TranslationManager : ITranslationManager, IComparable
+    public class TranslationManager : ITranslationManager
     {
         public TranslationManager()
         {            
@@ -115,11 +115,6 @@ namespace TranslationMigrate.Core
                     TranslationSpanish = entityCollectionSpanish
                 };
             };
-        }
-
-        public int CompareTo(object obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }
