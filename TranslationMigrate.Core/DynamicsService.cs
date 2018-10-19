@@ -13,6 +13,7 @@ namespace TranslationMigrate.Core
 
         private DynamicsService()
         {
+            _credentials = new OrganizationServiceCredentials(CredentialType.Dev);
         }
 
         public DynamicsService(CredentialType credentialType)
