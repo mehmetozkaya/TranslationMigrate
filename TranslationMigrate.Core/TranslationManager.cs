@@ -50,15 +50,7 @@ namespace TranslationMigrate.Core
 
                 if(!isExist)
                 {
-                    TranslationItem translationItem = new TranslationItem
-                    {
-                        Code = sourceItem.Attributes["etel_code"].ToString().Trim(),
-                        FormId = sourceItem.Attributes["etel_formid"].ToString().Trim(),
-                        LanguageId = (int)sourceItem.Attributes["etel_lcid"],
-                        Message = sourceItem.Attributes["etel_message"].ToString().Trim(),
-                        RecordGuid = sourceItem.Id
-                    };
-
+                    TranslationItem translationItem = CreateTranslationItem(sourceItem);
                     translationDifferences.Add(translationItem);
 
                     try
@@ -79,6 +71,18 @@ namespace TranslationMigrate.Core
             }
 
             return translationDifferences;
+        }
+
+        private static TranslationItem CreateTranslationItem(Entity sourceItem)
+        {
+            return new TranslationItem
+            {
+                Code = sourceItem.Attributes["etel_code"].ToString().Trim(),
+                FormId = sourceItem.Attributes["etel_formid"].ToString().Trim(),
+                LanguageId = (int)sourceItem.Attributes["etel_lcid"],
+                Message = sourceItem.Attributes["etel_message"].ToString().Trim(),
+                RecordGuid = sourceItem.Id
+            };
         }
 
         private TranslationStack GetTargetTranslationList()
