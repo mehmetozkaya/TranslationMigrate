@@ -13,7 +13,7 @@ namespace TranslationMigrate.Core
 
         private DynamicsService()
         {
-            _credentials = new OrganizationServiceCredentials(CredentialType.Dev);
+            _credentials = new OrganizationServiceCredentials(CredentialType.Dev);            
         }
 
         public DynamicsService(CredentialType credentialType)
@@ -55,11 +55,9 @@ namespace TranslationMigrate.Core
         internal void UpdateTranslation(Entity sourceItem)
         {
             var translationEntity = Retrieve(sourceItem.LogicalName, sourceItem.Id, new ColumnSet(new string[] { "etel_lcid", "etel_formid", "etel_code", "etel_message", "modifiedon", "createdon" }));
-
             translationEntity["etel_code"] = sourceItem.Attributes["etel_code"].ToString();
             translationEntity["etel_formid"] = sourceItem.Attributes["etel_formid"].ToString();
             translationEntity["etel_message"] = sourceItem.Attributes["etel_message"].ToString();
-
             Update(translationEntity);
         }
 
