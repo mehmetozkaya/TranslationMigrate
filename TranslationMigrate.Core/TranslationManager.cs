@@ -52,28 +52,32 @@ namespace TranslationMigrate.Core
                 {
                     TranslationItem translationItem = CreateTranslationItem(sourceItem);
                     translationDifferences.Add(translationItem);
-
-                    try
-                    {
-                        using (var service = new DynamicsService(CredentialType.MasterDev))
-                        {
-                            service.Create(sourceItem);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        using (var service = new DynamicsService(CredentialType.MasterDev))
-                        {
-                            service.UpdateTranslation(sourceItem);
-                        }
-                    }
+                    CreateOrUpdate(sourceItem);
                 }
             }
 
             return translationDifferences;
         }
 
-        private static TranslationItem CreateTranslationItem(Entity sourceItem)
+        private void CreateOrUpdate(Entity sourceItem)
+        {
+            try
+            {
+                using (var service = new DynamicsService(CredentialType.MasterDev))
+                {
+                    service.Create(sourceItem);
+                }
+            }
+            catch (Exception)
+            {
+                using (var service = new DynamicsService(CredentialType.MasterDev))
+                {
+                    service.UpdateTranslation(sourceItem);
+                }
+            }
+        }
+
+        private TranslationItem CreateTranslationItem(Entity sourceItem)
         {
             return new TranslationItem
             {
