@@ -32,13 +32,7 @@ namespace TranslationMigrate.Core
                         isExist = true;
                         if (sourceItem["etel_message"].ToString() != targetItem["etel_message"].ToString())
                         {
-                            Entity targetUpdate = new Entity(targetItem.LogicalName, targetItem.Id);
-                            targetUpdate["etel_message"] = sourceItem.Attributes["etel_message"].ToString();
-
-                            using (var service = new DynamicsService(CredentialType.MasterDev))
-                            {
-                                service.Update(targetUpdate);
-                            }
+                            UpdateTranslation(sourceItem, targetItem);
                         }
                     }
                 }
@@ -51,6 +45,17 @@ namespace TranslationMigrate.Core
                 }
             }
             return translationDifferences;
+        }
+
+        private void UpdateTranslation(Entity sourceItem, Entity targetItem)
+        {
+            Entity targetUpdate = new Entity(targetItem.LogicalName, targetItem.Id);
+            targetUpdate["etel_message"] = sourceItem.Attributes["etel_message"].ToString();
+
+            using (var service = new DynamicsService(CredentialType.MasterDev))
+            {
+                service.Update(targetUpdate);
+            }
         }
 
         private bool IsSameTranslation(Entity sourceItem, Entity targetItem)
