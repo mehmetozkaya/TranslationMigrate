@@ -39,7 +39,7 @@ namespace TranslationMigrate.Core
 
                 if (!isExist)
                 {
-                    TranslationItem translationItem = CreateTranslationItem(sourceItem);
+                    var translationItem = CreateTranslationItem(sourceItem);
                     translationDifferences.Add(translationItem);
                     CreateOrUpdate(sourceItem);
                 }
