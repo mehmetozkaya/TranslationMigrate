@@ -27,11 +27,7 @@ namespace TranslationMigrate.Core
                 var isExist = false;
                 foreach (var targetItem in targetTranslations.Entities)
                 {
-                    if(
-                        sourceItem["etel_formid"].ToString() == targetItem["etel_formid"].ToString()
-                        && sourceItem["etel_lcid"].ToString() == targetItem["etel_lcid"].ToString()
-                        && sourceItem["etel_code"].ToString() == targetItem["etel_code"].ToString()
-                        )
+                    if (IsSameTranslation(sourceItem, targetItem))
                     {
                         isExist = true;
                         if (sourceItem["etel_message"].ToString() != targetItem["etel_message"].ToString())
@@ -47,7 +43,7 @@ namespace TranslationMigrate.Core
                     }
                 }
 
-                if(!isExist)
+                if (!isExist)
                 {
                     TranslationItem translationItem = CreateTranslationItem(sourceItem);
                     translationDifferences.Add(translationItem);
@@ -55,6 +51,13 @@ namespace TranslationMigrate.Core
                 }
             }
             return translationDifferences;
+        }
+
+        private bool IsSameTranslation(Entity sourceItem, Entity targetItem)
+        {
+            return sourceItem["etel_formid"].ToString() == targetItem["etel_formid"].ToString()
+                                    && sourceItem["etel_lcid"].ToString() == targetItem["etel_lcid"].ToString()
+                                    && sourceItem["etel_code"].ToString() == targetItem["etel_code"].ToString();
         }
 
         private void CreateOrUpdate(Entity sourceItem)
