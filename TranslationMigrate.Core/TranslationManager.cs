@@ -31,7 +31,7 @@ namespace TranslationMigrate.Core
                     if (IsSameTranslation(sourceItem, targetItem))
                     {
                         isExist = true;
-                        if (sourceItem["etel_message"].ToString() != targetItem["etel_message"].ToString())
+                        if (IsSameMessage(sourceItem, targetItem))
                         {
                             UpdateTranslation(sourceItem, targetItem);
                         }
@@ -46,6 +46,11 @@ namespace TranslationMigrate.Core
                 }
             }
             return translationDifferences;
+        }
+
+        private bool IsSameMessage(Entity sourceItem, Entity targetItem)
+        {
+            return sourceItem["etel_message"].ToString() != targetItem["etel_message"].ToString();
         }
 
         private void UpdateTranslation(Entity sourceItem, Entity targetItem)
