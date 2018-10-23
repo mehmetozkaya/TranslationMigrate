@@ -38,7 +38,7 @@ namespace TranslationMigrate.Core
             {
                 throw new Exception(exception.Message);
             }
-        }         
+        }
 
         public QueryExpression CreateQuery(LanguageCode languageCode)
         {

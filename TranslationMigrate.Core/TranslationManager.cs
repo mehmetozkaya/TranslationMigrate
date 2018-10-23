@@ -22,6 +22,7 @@ namespace TranslationMigrate.Core
         private List<TranslationItem> CompareAndSync(EntityCollection sourceTranslations, EntityCollection targetTranslations)
         {
             var translationDifferences = new List<TranslationItem>();
+
             foreach (var sourceItem in sourceTranslations.Entities)
             {
                 var isExist = false;
